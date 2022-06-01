@@ -122,6 +122,7 @@ class Receiver:
 
 def send(data,prob_send_fail,prob_ack_fail):
     """ send data and return iterations needed """
+    global receiver #to make received data accessible, even though it is known to be equal to data
     sender=Sender(data,prob_send_fail)
     receiver=Receiver(prob_ack_fail)
 
@@ -176,7 +177,7 @@ if __name__=="__main__":
         count=send(data, p1, p2)
         print(f"Iterations: {count}")
         if input("Print sent/received data? [y/n]") in "Yy":
-            print("\n".join([str(i) for i in data])) #we know for certain that the input has been received due to the assert statement
+            print("\n".join([str(i) for i in receiver.received])) #we know for certain that the input has been received due to the assert statement
 
     elif len(sys.argv)==1:
         #run all experiments
